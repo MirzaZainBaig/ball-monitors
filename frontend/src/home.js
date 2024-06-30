@@ -1,26 +1,77 @@
-import React, { Suspense } from 'react'
-// import { Canvas } from '@react-three/fiber'git push origin  main
-// import { OrbitControls} from '@react-three/drei'
-// import Earth from '../public/Earth'
+// import React, { Suspense } from 'react'
+// import { Canvas } from '@react-three/fiber'
+// import { OrbitControls } from '@react-three/drei'
+// import "bootstrap/dist/css/bootstrap.min.css";
+// // import Earth from '../public/Earth'
 
-function Box (){
-    return(
+// function Box() {
+//     return (
+//         <mesh>
+//             <sphereGeometry args={[1, 30, 30]} />
+//             <meshStandardMaterial color={'green'} />
+//         </mesh>
+//     );
+// }
+
+// function Home() {
+//     return (
+//         <div>
+
+//             <nav class="navbar navbar-dark bg-dark d-flex justify-content-center align-items-center">
+      
+//                 <h1 className='navbar-brand'>BallMonitors</h1>
+//             </nav>
+//             <div className='d-flex justify-content-center align-items-center vh-100 bg-dark bg-gradient'>
+//                 <Canvas>
+//                     <OrbitControls />
+//                     {/* <ambientlight intensity = {0.5}/> */}
+//                     <Box />
+//                 </Canvas>
+//             </div>
+//         </div>
+//     )
+// }
+
+// export default Home
+
+import React, { useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { SketchPicker } from 'react-color'; // Import color picker component
+import "bootstrap/dist/css/bootstrap.min.css";
+
+function Box({ color }) {
+    return (
         <mesh>
-            {/* <boxBufferGeometry attach={'geometry'}></boxBufferGeometry>
-            <meshLamberMaterial attach={'material'} color ='hotpink'></meshLamberMaterial> */}
-            {/* <sphereBufferGeometry args={[1, 30, 30]} /> */}
-            <h1>zain</h1>
+            <sphereGeometry args={[1, 30, 30]} />
+            <meshStandardMaterial color={color} />
         </mesh>
     );
 }
 
 function Home() {
-  return (
-    <div>
+    const [color, setColor] = useState('green'); // State for the sphere color
 
-            <Box/>
-    </div>
-  )
+    return (
+        <div>
+            <nav className="navbar navbar-dark bg-dark d-flex justify-content-center align-items-center">
+                <h1 className="navbar-brand">BallMonitors</h1>
+            </nav>
+            <div className="d-flex justify-content-center align-items-center vh-100 bg-dark bg-gradient">
+                <Canvas>
+                    <OrbitControls />
+                    <ambientLight intensity={5} />
+                    <Box color={color} />
+                </Canvas>
+                <div className="position-absolute" style={{ top: 20, right: 20 }}>
+                    <SketchPicker
+                        color={color}
+                        onChangeComplete={(newColor) => setColor(newColor.hex)}
+                    />
+                </div>
+            </div>
+        </div>
+    );
 }
 
-export default Home
+export default Home;
